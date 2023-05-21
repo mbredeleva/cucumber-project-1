@@ -1,0 +1,54 @@
+plugins {
+    id 'java'
+    id 'io.freefair.lombok' version '8.0.1'
+    id 'io.qameta.allure' version '2.11.2'
+    id "se.thinkcode.cucumber-runner" version "0.0.8"
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.codeborne:selenide:6.14.0'
+
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testImplementation 'org.assertj:assertj-core:3.6.1'
+    testImplementation 'io.cucumber:cucumber-java:7.12.0'
+    testImplementation 'io.cucumber:cucumber-junit:7.12.0'
+    testImplementation 'io.cucumber:cucumber-picocontainer:6.11.0'
+
+    implementation "io.qameta.allure:allure-selenide:2.22.0"
+    implementation "io.qameta.allure:allure-cucumber6-jvm:2.22.0"
+    implementation "org.slf4j:slf4j-api:1.7.32"
+    runtimeOnly "org.aspectj:aspectjweaver:1.9.7"
+}
+
+cucumber {
+    glue = 'classpath:steps'
+    plugin = ['pretty', 'io.qameta.allure.cucumber6jvm.AllureCucumber6Jvm']
+    name = ''
+    dryRun = ''
+    snippets = ''
+    version = ''
+    i18n = ''
+    wip = ''
+
+    featurePath = 'src/test/resources/features'
+    main = 'io.cucumber.core.cli.Main'
+}
+
+allure {
+    version = '2.22.0'
+    autoconfigure = false
+    aspectjweaver = true
+}
+
+test {
+    useJUnitPlatform()
+}
